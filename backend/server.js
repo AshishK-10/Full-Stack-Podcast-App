@@ -4,6 +4,7 @@ const cors = require('cors')
 const connectDb = require('./config/db')
 const colors = require('colors')
 const userRoutes = require('./routes/userRoutes')
+const {errorHandler, notFound} = require('./middleware/errorMiddleware');
 
 const app = express();
 dotenv.config();
@@ -22,6 +23,10 @@ app.get('/api/chat', (req,res)=>{
 app.get('/', (req, res)=>{
   res.send("this is the server running successfully")
 })
+
+// error handlers
+app.use(notFound);
+app.use(errorHandler);
 
 const port = process.env.PORT || 5000;
 app.listen(5000, console.log(`server started on port ${port}`.yellow.bold))

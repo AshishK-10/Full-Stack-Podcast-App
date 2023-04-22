@@ -3,12 +3,14 @@ const User = require('../model/userModel') //user modal
 const generateToken = require('../config/generateToken') // created a jwt token
 
 const registerUser = asyncHandler( async(req, res) => { // create the new user
-  const {name, email, password, pic = process.env.DEFAULT_PROFILE_PIC } = req.body;
-
+  let {name, email, password, pic = process.env.DEFAULT_PROFILE_PIC } = req.body;
+  if(pic === "")
+   pic = process.env.DEFAULT_PROFILE_PIC;
   if(!name || !email || !password){
     res.status(400);
     throw new Error("Please enter the fields!");
   }
+
 
   const userExists = await User.findOne({email})
   if (userExists){
@@ -61,4 +63,19 @@ const authUser = asyncHandler(async(req, res) => {
   }
 })
 
-module.exports = {registerUser, authUser};
+
+//api/user?search="ashish"
+const allUsers = asyncHandler(async (req, res)=>{
+  const keyword = req.query.search
+  ? {
+    $or: [ //return name of email if present
+      { name: { $regex: req.query.search, $options: "i"} },
+      { email: { $regex: req.query.search, $options: "i"} },
+    ]
+  }
+  : {};
+  // returns all users except current user
+  const users = (await User.find(keyword)).find({ _id: { $ne: req.user_id } })
+});
+
+module.exports = {registerUser, authUser, allUsers};
