@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
   return (
-    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden shadow-xl bg-green-500">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-        <h1 className="text-3xl font-semibold text-center text-purple-700 underline">
+        <h1 className="text-4xl font-bold text-center text-purple-700">
           Sign up
         </h1>
         <form className="mt-6" autoComplete="off">
@@ -56,6 +57,16 @@ const Signup = () => {
             </button>
           </div>
         </form>
+        <p className="mt-8 text-xs font-light text-center text-gray-700">
+          {' '}
+          Already have an account?{' '}
+          <Link
+            to="/login"
+            className="font-medium text-purple-600 hover:underline"
+          >
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );

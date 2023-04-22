@@ -22,13 +22,16 @@ const App = () => {
 
   return (
     <>
-      <Routes>
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
+      {/* <Routes>
+        <Route exact path="/signup" element={<Signup />} />
+      </Routes> */}
       {!isLogin ? (
-        <Login />
+        <Routes>
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<Signup />} />
+        </Routes>
       ) : (
-        <div className="relative flex">
+        <div className="relative flex h-[100vh]">
           <Sidebar />
           <div className="flex-1 flex flex-col bg-gradient-to-br from-black to-[#121286]">
             <Searchbar />
@@ -37,7 +40,6 @@ const App = () => {
               <div className="flex-1 h-fit pb-40">
                 <Routes>
                   <Route path="/" element={<Discover />} />
-                  <Route path="/top-artists" element={<TopArtists />} />
                   <Route path="/top-charts" element={<TopCharts />} />
                   <Route path="/around-you" element={<AroundYou />} />
                   <Route path="/artists/:id" element={<ArtistDetails />} />
