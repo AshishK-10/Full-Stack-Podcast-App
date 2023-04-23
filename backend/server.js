@@ -4,6 +4,7 @@ const cors = require('cors')
 const connectDb = require('./config/db')
 const colors = require('colors')
 const userRoutes = require('./routes/userRoutes')
+const podcastRoutes = require('./routes/podcastRoutes')
 const {errorHandler, notFound} = require('./middleware/errorMiddleware');
 
 const app = express();
@@ -15,14 +16,7 @@ app.use(cors());
 app.use(express.json()); // to accept the json data
 
 app.use('/api/user', userRoutes) // /api/user routes
-
-app.get('/api/chat', (req,res)=>{
-  res.json({name: "ashish"})
-})
-
-app.get('/', (req, res)=>{
-  res.send("this is the server running successfully")
-})
+app.use('/api/podcast', podcastRoutes) // /api/podcast routes
 
 // error handlers
 app.use(notFound);

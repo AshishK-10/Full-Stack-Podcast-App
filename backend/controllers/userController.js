@@ -1,8 +1,10 @@
-const asyncHandler = require('express-async-handler') // handles all the async related errors in express
+// handles all the async related errors in express
+const asyncHandler = require('express-async-handler')
 const User = require('../model/userModel') //user modal
 const generateToken = require('../config/generateToken') // created a jwt token
 
-const registerUser = asyncHandler( async(req, res) => { // create the new user
+// create the new user
+const registerUser = asyncHandler( async(req, res) => {
   let {name, email, password, pic = process.env.DEFAULT_PROFILE_PIC } = req.body;
   if(pic === "")
    pic = process.env.DEFAULT_PROFILE_PIC;
@@ -40,7 +42,7 @@ const registerUser = asyncHandler( async(req, res) => { // create the new user
     }
 });
 
-
+// authorize the user
 const authUser = asyncHandler(async(req, res) => {
   const {email, password} = req.body;
   console.log(email, password)
@@ -66,16 +68,18 @@ const authUser = asyncHandler(async(req, res) => {
 
 //api/user?search="ashish"
 const allUsers = asyncHandler(async (req, res)=>{
-  const keyword = req.query.search
-  ? {
-    $or: [ //return name of email if present
+  const keyword = req.query.search ? {
+    $or: [ //creates query to fetch name or email starting with searched key
       { name: { $regex: req.query.search, $options: "i"} },
       { email: { $regex: req.query.search, $options: "i"} },
     ]
   }
   : {};
+
   // returns all users except current user
-  const users = (await User.find(keyword)).find({ _id: { $ne: req.user_id } })
+  const users = await User.find(keyword).find({ _id: { $ne: req.user_id } });
+  res.send(users);
+
 });
 
 module.exports = {registerUser, authUser, allUsers};
