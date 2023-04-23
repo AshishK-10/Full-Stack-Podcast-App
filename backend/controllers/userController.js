@@ -45,14 +45,12 @@ const registerUser = asyncHandler( async(req, res) => {
 // authorize the user
 const authUser = asyncHandler(async(req, res) => {
   const {email, password} = req.body;
-  console.log(email, password)
   if(!email || !password){
     res.status(400);
     throw new Error("Please enter all the details");
   }
 
   const user = await User.findOne({email});
-  console.log("user", user)
   if(user && (await user.matchPassword(password)))
   {
      res.status(200).json({

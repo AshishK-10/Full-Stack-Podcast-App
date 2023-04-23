@@ -71,7 +71,7 @@ const Signup = () => {
 
       // move to the main page -> success
     } catch (error) {
-      console.log(error); // toast to display error!
+      console.log(error.response.data.message); // toast to display error!
       setLoading(false);
     }
   };
