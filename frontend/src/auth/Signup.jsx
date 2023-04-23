@@ -79,7 +79,7 @@ const Signup = ({ setIsLogin }) => {
       setIsLogin(true);
       toDiscover();
     } catch (error) {
-      console.log(error); // toast to display error!
+      console.log(error.response.data.message); // toast to display error!
       setLoading(false);
     }
   };

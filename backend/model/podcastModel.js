@@ -6,7 +6,8 @@ const podcastSchema = mongoose.Schema({
   type: {type: String, required: true},
   artist: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
   file: {type: String, required: true},
-  hits: {type: Number, default: 0},
+  description: {type: String, required: true},
+  views: {type: Number, default: 0},
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 })
 
