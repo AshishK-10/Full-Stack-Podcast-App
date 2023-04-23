@@ -7,12 +7,16 @@ const initialState = {
   isPlaying: false,
   activeSong: {},
   genreListId: '',
+  isVideoPlaying: false,
 };
 
 const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
+    setVideoPlaying: (state, action) => {
+      state.isVideoPlaying = action.payload;
+    },
     setActiveSong: (state, action) => {
       console.log(action.payload);
       state.activeSong = action.payload.song;
@@ -67,6 +71,7 @@ export const {
   prevSong,
   playPause,
   selectGenreListId,
+  setVideoPlaying,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

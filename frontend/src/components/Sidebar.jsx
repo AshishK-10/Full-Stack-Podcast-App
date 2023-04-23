@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { RiCloseLine } from 'react-icons/ri';
 import { logo } from '../assets';
 import { links } from '../assets/constants';
-import { HiOutlineMenu } from 'react-icons/hi';
+import { HiLogout, HiOutlineMenu } from 'react-icons/hi';
 
 const NavLinks = ({ handleClick }) => (
   <div className="mt-10">

@@ -5,6 +5,7 @@ import Login from './auth/Login';
 import Signup from './auth/Signup';
 
 import { Searchbar, Sidebar, MusicPlayer, TopPlay } from './components';
+import VideoPlayer from './components/VideoPlayer';
 import {
   ArtistDetails,
   TopArtists,
@@ -17,7 +18,7 @@ import {
 } from './pages';
 
 const App = () => {
-  const { activeSong } = useSelector((state) => state.player);
+  const { activeSong, isVideoPlaying } = useSelector((state) => state.player);
   const [isLogin, setIsLogin] = useState(false);
 
   return (
@@ -27,8 +28,12 @@ const App = () => {
       </Routes> */}
       {!isLogin ? (
         <Routes>
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/" element={<Login setIsLogin={setIsLogin} />} />
+          <Route
+            exact
+            path="/signup"
+            element={<Signup setIsLogin={setIsLogin} />}
+          />
         </Routes>
       ) : (
         <div className="relative flex h-[100vh]">
@@ -39,7 +44,7 @@ const App = () => {
             <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
               <div className="flex-1 h-fit pb-40">
                 <Routes>
-                  <Route path="/" element={<Discover />} />
+                  <Route path="/discover" element={<Discover />} />
                   <Route path="/top-charts" element={<TopCharts />} />
                   <Route path="/around-you" element={<AroundYou />} />
                   <Route path="/artists/:id" element={<ArtistDetails />} />
@@ -54,9 +59,15 @@ const App = () => {
             </div>
           </div>
 
-          {activeSong?.title && (
+          {activeSong?.title && activeSong?.type === 'mp3' && (
             <div className="absolute h-28 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-t-3xl z-10">
               <MusicPlayer />
+            </div>
+          )}
+
+          {isVideoPlaying && activeSong?.title && activeSong?.type === 'mp4' && (
+            <div className="absolute h-28 top-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-t-3xl z-10">
+              <VideoPlayer />
             </div>
           )}
         </div>

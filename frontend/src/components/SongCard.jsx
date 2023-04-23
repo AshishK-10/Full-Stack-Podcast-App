@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import PlayPause from './PlayPause';
-import { playPause, setActiveSong } from '../redux/features/playerSlice';
+import {
+  playPause,
+  setActiveSong,
+  setVideoPlaying,
+} from '../redux/features/playerSlice';
 const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
   const dispatch = useDispatch();
   const handlePauseClick = () => {
@@ -10,6 +14,9 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
   const handlePlayClick = () => {
     dispatch(setActiveSong({ song, data, i }));
     dispatch(playPause(true));
+    if (song.type === 'mp4') {
+      dispatch(setVideoPlaying(true));
+    }
   };
   return (
     <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">

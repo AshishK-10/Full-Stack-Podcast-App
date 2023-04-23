@@ -1,14 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
-const Signup = () => {
+const Signup = ({ setIsLogin }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [pic, setPic] = useState();
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  function toDiscover() {
+    navigate('/discover');
+  }
 
   const postDetails = (pics) => {
     setLoading(true);
@@ -70,6 +76,8 @@ const Signup = () => {
       setLoading(false);
 
       // move to the main page -> success
+      setIsLogin(true);
+      toDiscover();
     } catch (error) {
       console.log(error); // toast to display error!
       setLoading(false);
@@ -164,10 +172,7 @@ const Signup = () => {
         <p className="mt-8 text-xs font-light text-center text-gray-700">
           {' '}
           Already have an account?{' '}
-          <Link
-            to="/login"
-            className="font-medium text-purple-600 hover:underline"
-          >
+          <Link to="/" className="font-medium text-purple-600 hover:underline">
             Login
           </Link>
         </p>

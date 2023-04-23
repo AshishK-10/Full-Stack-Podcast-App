@@ -39,18 +39,6 @@ const Player = ({
         onTimeUpdate={onTimeUpdate}
         onLoadedData={onLoadedData}
       />
-      {/* <video
-        width="750"
-        height="500"
-        controls
-        ref={ref}
-        loop={repeat}
-        onEnded={onEnded}
-        onTimeUpdate={onTimeUpdate}
-        onLoadedData={onLoadedData}
-      >
-        <source src="src\assets\video.mp4" type="video/mp4" />
-      </video> */}
     </>
   );
 };
