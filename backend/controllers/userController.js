@@ -61,6 +61,10 @@ const authUser = asyncHandler(async(req, res) => {
       token: generateToken(user._id),
     });
   }
+  else{
+    res.status(400);
+    throw new Error("email or password is incorrect");
+  }
 })
 
 
