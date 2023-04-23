@@ -18,17 +18,8 @@ const playerSlice = createSlice({
       state.isVideoPlaying = action.payload;
     },
     setActiveSong: (state, action) => {
-      console.log(action.payload);
       state.activeSong = action.payload.song;
-
-      if (action.payload?.data?.tracks?.hits) {
-        state.currentSongs = action.payload.data.tracks.hits;
-      } else if (action.payload?.data?.properties) {
-        state.currentSongs = action.payload?.data?.tracks;
-      } else {
-        state.currentSongs = action.payload.data;
-      }
-
+      state.currentSongs = action.payload.song.file;
       state.currentIndex = action.payload.i;
       state.isActive = true;
     },

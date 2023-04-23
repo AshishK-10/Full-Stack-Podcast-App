@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import image from '../assets/image.jpg';
-const DetailsHeader = ({ artistId, artistData, songData = [] }) => {
+const DetailsHeader = ({ artist, songData }) => {
   return (
     <div className="relative w-full flex flex-col">
       <div className="w-full bg-gradient-to-1 from-transparent to-black sm:h-40 h-28">
@@ -13,12 +13,12 @@ const DetailsHeader = ({ artistId, artistData, songData = [] }) => {
           />
           <div className="ml-5">
             <p className="font-bold sm:text-3xl text-xl text-white">
-              {songData[0] ? songData[0].title : artistId}
+              {songData ? songData?.name : artist?.name}
             </p>
-            {songData[0] ? (
-              <Link to={`/artists/${songData[0].creator}`}>
+            {songData ? (
+              <Link to={`/artists/${songData?.artist?._id}`}>
                 <p className="text-sm sm:text-2xl text-gray-400 mt-2">
-                  {songData[0].creator}
+                  {songData?.artist?.name}
                 </p>
               </Link>
             ) : (

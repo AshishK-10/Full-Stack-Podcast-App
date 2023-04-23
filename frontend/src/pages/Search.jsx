@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
 import { Error, Loader, SongCard } from '../components';
-import { data } from '../../data';
 
 const Search = () => {
   const { searchTerm } = useParams();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
+  const { data } = useSelector((state) => state.podcasts);
 
   const songs = data.filter((item) =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
   console.log(songs);
   return (

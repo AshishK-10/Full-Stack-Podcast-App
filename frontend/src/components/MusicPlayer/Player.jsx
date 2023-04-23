@@ -32,7 +32,7 @@ const Player = ({
   return (
     <>
       <audio
-        src="src\assets\audio.mp3"
+        src={activeSong?.file}
         ref={ref}
         loop={repeat}
         onEnded={onEnded}

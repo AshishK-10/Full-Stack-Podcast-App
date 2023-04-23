@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import Login from './auth/Login';
 import Signup from './auth/Signup';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Searchbar, Sidebar, MusicPlayer, TopPlay } from './components';
 import VideoPlayer from './components/VideoPlayer';
 import {
   ArtistDetails,
-  TopArtists,
   AroundYou,
   Discover,
   Search,
@@ -16,10 +17,19 @@ import {
   TopCharts,
   NotFound,
 } from './pages';
+import { getAllPodcasts } from '../data';
+import { setPodcasts } from './redux/features/podcastSlice';
 
 const App = () => {
   const { activeSong, isVideoPlaying } = useSelector((state) => state.player);
   const [isLogin, setIsLogin] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const localData = localStorage?.getItem('userInfo');
+    const { token } = JSON.parse(localData) || '';
+    getAllPodcasts(token).then((res) => dispatch(setPodcasts(res)));
+  }, [isLogin]);
 
   return (
     <>
@@ -59,19 +69,20 @@ const App = () => {
             </div>
           </div>
 
-          {activeSong?.title && activeSong?.type === 'mp3' && (
+          {activeSong?.name && activeSong?.type === 'audio' && (
             <div className="absolute h-28 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-t-3xl z-10">
               <MusicPlayer />
             </div>
           )}
 
-          {isVideoPlaying && activeSong?.title && activeSong?.type === 'mp4' && (
+          {isVideoPlaying && activeSong?.name && activeSong?.type === 'video' && (
             <div className="absolute h-28 top-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-t-3xl z-10">
               <VideoPlayer />
             </div>
           )}
         </div>
       )}
+      <ToastContainer autoClose={1500} />
     </>
   );
 };

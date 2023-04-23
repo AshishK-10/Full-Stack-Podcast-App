@@ -1,4 +1,5 @@
 import React from 'react';
+import image from '../../assets/default.jpg';
 
 const Track = ({ isPlaying, isActive, activeSong }) => (
   <div className="flex-1 flex items-center justify-start">
@@ -8,14 +9,14 @@ const Track = ({ isPlaying, isActive, activeSong }) => (
       } hidden sm:block h-16 w-16 mr-4`}
     >
       <img
-        src={activeSong?.coverArt}
+        src={activeSong?.coverArt || image}
         alt="cover art"
         className="rounded-full h-[100%] w-[100%] object-cover"
       />
     </div>
     <div className="w-[50%]">
       <p className="truncate text-white font-bold text-lg">
-        {activeSong?.title ? activeSong?.title : 'No active Song'}
+        {activeSong?.name ? activeSong?.name : 'No active Song'}
       </p>
       <p className="truncate text-gray-300">
         {activeSong?.creator ? activeSong?.creator : 'No active Song'}

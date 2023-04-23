@@ -11,7 +11,7 @@ const Searchbar = () => {
   };
   return (
     <form
-      autocomplete="off"
+      autoComplete="off"
       onSubmit={handleSubmit}
       className="p-2 text-gray-400 focus-within:text-gray-600"
     >

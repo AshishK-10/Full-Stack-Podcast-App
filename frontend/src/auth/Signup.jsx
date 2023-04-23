@@ -19,7 +19,7 @@ const Signup = ({ setIsLogin }) => {
   const postDetails = (pics) => {
     setLoading(true);
     if (pics === undefined) {
-      console.log('pic is undefined'); // change to toast
+      toast.warn('Pic is undefined');
       setLoading(false);
       return;
     }
@@ -37,16 +37,17 @@ const Signup = ({ setIsLogin }) => {
       })
         .then((res) => res.json())
         .then((data) => {
+          toast.success('Profile pic Uploaded');
           setPic(data.url.toString());
           setLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          toast.error('Something went wrong');
           setLoading(false);
           return;
         });
     } else {
-      console.log('this is the not the image file'); // change to toast
+      toast.error('Please upload only image files');
       setLoading(false);
       return;
     }
@@ -56,7 +57,7 @@ const Signup = ({ setIsLogin }) => {
     e.preventDefault();
     setLoading(true);
     if (!name || !email || !password) {
-      console.log('please enter all the details'); //change to toast
+      toast.warn('Please enter all the details');
       return;
     }
     try {
@@ -65,21 +66,21 @@ const Signup = ({ setIsLogin }) => {
           'Content-Type': 'application/json',
         },
       };
-      const { data } = await axios.post(
-        'http://localhost:5000/api/user',
-        { name, email, password, pic },
-        config
-      );
-      // toast of successful
+      const { data } = await axios
+        .post(
+          'http://localhost:5000/api/user',
+          { name, email, password, pic },
+          config
+        )
+        .then((res) => toast.success(`Welcome ${res.name}`));
 
       localStorage.setItem('userInfo', JSON.stringify(data));
       setLoading(false);
 
-      // move to the main page -> success
       setIsLogin(true);
       toDiscover();
     } catch (error) {
-      console.log(error.response.data.message); // toast to display error!
+      toast.error(error.response.data.message);
       setLoading(false);
     }
   };
@@ -162,7 +163,9 @@ const Signup = ({ setIsLogin }) => {
 
           <div className="mt-6">
             <button
-              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+              className={`w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600 
+               disabled:bg-purple-200 disabled:cursor-not-allowed`}
+              disabled={loading}
               onClick={submitDetails}
             >
               Sign Up

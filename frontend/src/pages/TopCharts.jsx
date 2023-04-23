@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { Error, Loader, SongCard } from '../components';
-import { data } from '../../data';
 
 const TopCharts = () => {
   const { activeSong, isPlaying } = useSelector((state) => state.player);
+  const { data } = useSelector((state) => state.podcasts);
 
   return (
     <div className="flex flex-col">
@@ -14,7 +14,7 @@ const TopCharts = () => {
       </h2>
 
       <div className="flex flex-wrap sm:justify-start justify-center gap-8">
-        {data.map((song, i) => (
+        {data?.map((song, i) => (
           <SongCard
             key={song.key}
             song={song}

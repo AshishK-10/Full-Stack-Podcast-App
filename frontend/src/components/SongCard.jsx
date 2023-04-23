@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import PlayPause from './PlayPause';
+import image from '../assets/default.jpg';
 import {
   playPause,
   setActiveSong,
@@ -14,7 +15,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
   const handlePlayClick = () => {
     dispatch(setActiveSong({ song, data, i }));
     dispatch(playPause(true));
-    if (song.type === 'mp4') {
+    if (song.type === 'video') {
       dispatch(setVideoPlaying(true));
     }
   };
@@ -23,7 +24,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
       <div className="relative w-full h-56 group overflow-hidden">
         <div
           className={` absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${
-            activeSong?.title === song.title
+            activeSong?.name === song.name
               ? 'flex bg-black bg-opacity-70'
               : 'hidden'
           }`}
@@ -36,14 +37,14 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
             activeSong={activeSong}
           />
         </div>
-        <img src={song?.coverArt} alt="" />
+        <img src={song?.coverArt || image} alt="" />
       </div>
       <div className="mt-4 flex flex-col">
         <p className="font-semibold text-lg text-white truncate">
-          <Link to={`/songs/${song?.key}`}>{song.title}</Link>
+          <Link to={`/songs/${song?._id}`}>{song.name}</Link>
         </p>
         <p className="mt-1 text-sm text-gray-300 truncate">
-          <Link to={`/artists/${song?.creator}`}>{song.creator}</Link>
+          <Link to={`/artists/${song?.artist}`}>{song.creator}</Link>
         </p>
       </div>
     </div>

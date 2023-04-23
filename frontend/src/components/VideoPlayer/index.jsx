@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { playPause, setVideoPlaying } from '../../redux/features/playerSlice';
 const VideoPlayer = () => {
+  const { activeSong } = useSelector((state) => state.player);
   const dispatch = useDispatch();
   return (
     <>
@@ -19,7 +20,7 @@ const VideoPlayer = () => {
             X
           </span>
           <video autoPlay controls>
-            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"></source>
+            <source src={activeSong?.file}></source>
           </video>
         </div>
       </div>

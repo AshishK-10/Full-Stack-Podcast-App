@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Signup from './Signup';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = ({ setIsLogin }) => {
   const [email, setEmail] = useState('');
@@ -18,7 +20,7 @@ const Login = ({ setIsLogin }) => {
     e.preventDefault();
     setLoading(true);
     if (!email || !password) {
-      console.log('enter complete details'); // alert to enter complete details
+      toast.info('Please enter complete details');
       setLoading(false);
       return;
     }
@@ -29,23 +31,23 @@ const Login = ({ setIsLogin }) => {
           'Content-Type': 'application/json',
         },
       };
-      const { data } = await axios.post(
-        'http://localhost:5000/api/user/login',
-        { email, password },
-        config
-      );
-
-      // toast of successful
-
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      setLoading(false);
-
-      // move to the main page -> success
-      console.log('login successful!', data);
-      setIsLogin(true);
-      toDiscover();
+      const { data } = await axios
+        .post(
+          'http://localhost:5000/api/user/login',
+          { email, password },
+          config
+        )
+        .then((res) => {
+          // console.log(res.data);
+          localStorage.setItem('userInfo', JSON.stringify(res.data));
+          toast.success('Login Success');
+          setLoading(false);
+          setIsLogin(true);
+          toDiscover();
+        })
+        .catch((err) => toast.error('Something went wrong', err));
     } catch (error) {
-      console.log(error); // toast to display error!
+      toast.error(error);
       setLoading(false);
     }
   };
