@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Signup = ({ setIsLogin }) => {
   const [name, setName] = useState('');
@@ -75,6 +76,7 @@ const Signup = ({ setIsLogin }) => {
         .then((res) => toast.success(`Welcome ${res.name}`));
 
       localStorage.setItem('userInfo', JSON.stringify(data));
+      localStorage.setItem('loggedIn', JSON.stringify(true));
       setLoading(false);
 
       setIsLogin(true);

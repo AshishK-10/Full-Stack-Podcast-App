@@ -22,7 +22,7 @@ import { setPodcasts } from './redux/features/podcastSlice';
 
 const App = () => {
   const { activeSong, isVideoPlaying } = useSelector((state) => state.player);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(JSON.parse(localStorage?.getItem('loggedIn')) || false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const App = () => {
         <Route exact path="/signup" element={<Signup />} />
       </Routes> */}
       {!isLogin ? (
+        <>
         <Routes>
           <Route exact path="/" element={<Login setIsLogin={setIsLogin} />} />
           <Route
@@ -45,6 +46,7 @@ const App = () => {
             element={<Signup setIsLogin={setIsLogin} />}
           />
         </Routes>
+        </>
       ) : (
         <div className="relative flex h-[100vh]">
           <Sidebar />
