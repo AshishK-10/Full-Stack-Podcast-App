@@ -95,7 +95,7 @@ const Signup = ({ setIsLogin }) => {
         <form className="mt-6" autoComplete="off">
           <div className="mb-2">
             <label
-              forHtml="email"
+              htmlFor="email"
               className="block text-sm font-semibold text-gray-800"
             >
               Email
@@ -112,7 +112,7 @@ const Signup = ({ setIsLogin }) => {
           </div>
           <div className="mb-2">
             <label
-              forHtml="username"
+              htmlFor="username"
               className="block text-sm font-semibold text-gray-800"
             >
               Username
@@ -129,7 +129,7 @@ const Signup = ({ setIsLogin }) => {
           </div>
           <div className="mb-2">
             <label
-              forHtml="password"
+              htmlFor="password"
               className="block text-sm font-semibold text-gray-800"
             >
               Password
@@ -147,7 +147,7 @@ const Signup = ({ setIsLogin }) => {
 
           <div className="mb-2">
             <label
-              forHtml="pic"
+              htmlFor="pic"
               className="block text-sm font-semibold text-gray-800"
             >
               Profile Image

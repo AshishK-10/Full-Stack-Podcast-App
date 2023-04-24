@@ -42,6 +42,7 @@ const Login = ({ setIsLogin }) => {
         .then((res) => {
           // console.log(res.data);
           localStorage.setItem('userInfo', JSON.stringify(res.data));
+          localStorage.setItem('loggedIn', JSON.stringify(true));
           toast.success('Login Success');
           setLoading(false);
           setIsLogin(true);
@@ -63,7 +64,7 @@ const Login = ({ setIsLogin }) => {
         <form className="mt-6" autoComplete="off">
           <div className="mb-2">
             <label
-              forHtml="email"
+              htmlFor="email"
               className="block text-sm font-semibold text-gray-800"
             >
               Email
@@ -80,7 +81,7 @@ const Login = ({ setIsLogin }) => {
           </div>
           <div className="mb-2">
             <label
-              forHtml="password"
+              htmlFor="password"
               className="block text-sm font-semibold text-gray-800"
             >
               Password

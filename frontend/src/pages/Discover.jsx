@@ -16,7 +16,7 @@ const Discover = () => {
     const { token,_id } = JSON.parse(localData) || '';
     setUserId(_id);
     setToken(token);
-  })
+  },[data])
 
   return (
     <div className="flex flex-col">
@@ -34,6 +34,7 @@ const Discover = () => {
             data={data}
             token={token}
             u_id={userId}
+            is_liked={song?.likes?.includes(userId)?1:0}
           />
         ))}
       </div>

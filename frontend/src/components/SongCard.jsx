@@ -1,18 +1,20 @@
+/* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PlayPause from './PlayPause';
 import image from '../assets/default.jpg';
+import { setPodcasts } from '../redux/features/podcastSlice';
 import {
   playPause,
   setActiveSong,
   setVideoPlaying,
 } from '../redux/features/playerSlice';
 import { HiOutlineHeart, HiHeart, HiVideoCamera, HiMicrophone } from 'react-icons/hi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios'
-const SongCard = ({ song, i, isPlaying, activeSong, data, u_id,token }) => {
-
-  const [choice,setChoice] = useState(0);
+import { getAllPodcasts } from '../../data';
+const SongCard = ({ song, i, isPlaying, activeSong, data, u_id,token,is_liked }) => {
+  const [choice,setChoice] = useState(is_liked || 0);
   const dispatch = useDispatch();
   const handlePauseClick = () => {
     dispatch(playPause(false));
@@ -24,11 +26,13 @@ const SongCard = ({ song, i, isPlaying, activeSong, data, u_id,token }) => {
       dispatch(setVideoPlaying(true));
     }
   };
+  
 
-let is_liked = song?.likes.includes(u_id) ? 1 : 0;
-
-const handleLike = async() => {
-  console.log(choice)
+const handleLike = async(e,val) => {
+  e.stopPropagation();
+  console.log("val",val)
+  setChoice(val)
+  console.log('choice',choice)
   try {
     const config = {
       headers: {
@@ -37,10 +41,12 @@ const handleLike = async() => {
       },
     };
     let p_id = song?._id
-    setChoice(!choice)
+    
     await axios
       .patch(`${import.meta.env.VITE_BASE_URL}/podcast/likedPodcast`,{p_id,u_id,choice}, config)
-      .then((res) => console.log('like',res));
+      .then((res) => {console.log('like',res);
+      getAllPodcasts(token).then((res) => dispatch(setPodcasts(res)));
+    });
   } catch (error) {
     console.log(error);
   }
@@ -77,9 +83,9 @@ const handleLike = async() => {
         </p>
         </div>
         <div className="flex text-2xl gap-2" >
-         <p onClick={handleLike}>
-         { choice ? (<span className='text-white'><HiOutlineHeart /></span>):
-          (<span className='text-red-600'><HiHeart /></span>)}
+         <p >
+         { !choice ? (<span className='text-red-600' onClick={(e) => handleLike(e,0)}><HiHeart /></span>):
+          (<span className='text-white' onClick={(e) => handleLike(e,1)}><HiOutlineHeart /></span>)}
          </p>
          <p>
          { song?.type==='video' ? (<span className='text-white'><HiVideoCamera /></span>):
