@@ -27,7 +27,8 @@ const Sidebar = () => {
   return (
     <>
       <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-[#191624]">
-        <img src={logo} alt="logo" className="w-full h-14 object-contain" />
+        {/* <img src={logo} alt="logo" className="w-full h-14 object-contain" /> */}
+        <h2 className='text-2xl text-white font-extrabold'>Podcast</h2>
         <NavLinks />
       </div>
       <div className="absolute md:hidden block top-6 right-3">

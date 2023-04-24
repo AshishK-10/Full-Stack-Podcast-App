@@ -41,7 +41,7 @@ export const getArtist = async (token, id) => {
     return await axios
       .get(`http://localhost:5000/api/user/${id}`, config)
       .then((res) => res.data)
-      .catch(err => [])
+      .catch(err => console.log(err))
   } catch (error) {
     console.log(error);
   }

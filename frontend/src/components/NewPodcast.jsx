@@ -19,7 +19,7 @@ const NewPodcast = ({ setNewPodcast }) => {
 
   function toPodcast(id) {
     console.log(id);
-    navigate(`/songs/${id}`);
+    navigate(`/podcasts/${id}`);
   }
 
   useEffect(() => {

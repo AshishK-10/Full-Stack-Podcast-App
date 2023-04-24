@@ -6,23 +6,23 @@ import { FreeMode } from 'swiper';
 import image from '../assets/default.jpg';
 
 import PlayPause from './PlayPause';
-import { playPause, setActiveSong } from '../redux/features/playerSlice';
+import { playPause, setActivePodcast } from '../redux/features/playerSlice';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 
-const TopChartCard = ({ song, i }) => {
+const TopChartCard = ({ podcast, i }) => {
   return (
     <div className="w-full flex flex-row items-center hover:bg-[#4c426e] py-2 p-4 rounded-lg cursor-pointer mb-2">
       <h3 className="font-bold text-base text-white mr-3">{i + 1}</h3>
       <div className="flex-1 flex flex-row justify-between items-center">
         <img
           className="w-20 h-20 rounded-lg"
-          src={song?.coverArt || image}
-          alt={song.name}
+          src={podcast?.coverArt || image}
+          alt={podcast.name}
         />
         <div className="flex-1 flex flex-col justify-center mx-3">
-          <Link to={`/songs/${song._id}`}>
-            <p className="text-xl font-bold text-white">{song?.name}</p>
+          <Link to={`/podcasts/${podcast._id}`}>
+            <p className="text-xl font-bold text-white">{podcast?.name}</p>
           </Link>
         </div>
       </div>
@@ -32,7 +32,7 @@ const TopChartCard = ({ song, i }) => {
 
 const TopPlay = () => {
   const dispatch = useDispatch();
-  const { activeSong, isPlaying } = useSelector((state) => state.player);
+  const { activePodcast, isPlaying } = useSelector((state) => state.player);
   const divRef = useRef(null);
   const { data } = useSelector((state) => state.podcasts);
 
@@ -45,7 +45,7 @@ const TopPlay = () => {
     dispatch(playPause(false));
   };
   const handlePlayClick = () => {
-    dispatch(setActiveSong({ song, data, i }));
+    dispatch(setActivePodcast({ podcast, data, i }));
     dispatch(playPause(true));
   };
 
@@ -63,8 +63,8 @@ const TopPlay = () => {
         </div>
 
         <div className="mt-4 flex flex-col gap-1">
-          {topPlays?.map((song, i) => (
-            <TopChartCard key={i} song={song} i={i} />
+          {topPlays?.map((podcast, i) => (
+            <TopChartCard key={i} podcast={podcast} i={i} />
           ))}
         </div>
       </div>

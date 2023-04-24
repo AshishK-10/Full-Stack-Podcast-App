@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { DetailsHeader } from "../components";
 import { getArtist } from "../../data";
 import { useState, useEffect } from "react";
-import {SongCard} from "../components";
+import {PodcastCard} from "../components";
 import { useSelector } from "react-redux";
 const ArtistDetails = () => {
   const { id } = useParams();
@@ -11,7 +11,7 @@ const ArtistDetails = () => {
   const { data } = useSelector((state) => state.podcasts);
   const [token, setToken] = useState("");
   const [userId, setUserId] = useState("");
-  const { activeSong, isPlaying } = useSelector((state) => state.player);
+  const { activePodcast, isPlaying } = useSelector((state) => state.player);
 
   useEffect(() => {
     const localData = localStorage?.getItem("userInfo");
@@ -27,13 +27,12 @@ const ArtistDetails = () => {
       <div className="mb-10 mt-10">
         <h2 className="text-white text-4xl font-bold">Related Podcasts</h2>
         <div className="mt-5 flex flex-wrap sm:justify-start text-white justify-center gap-8">
-          {console.log(artistData)}
           {artistData?.podcasts?.map((item, i) => (
-            <SongCard
+            <PodcastCard
               key={i}
-              song={item}
+              podcast={item}
               isPlaying={isPlaying}
-              activeSong={activeSong}
+              activeSong={activePodcast}
               i={i}
               data={data}
               token={token}

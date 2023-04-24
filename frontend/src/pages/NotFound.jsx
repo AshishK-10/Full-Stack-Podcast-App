@@ -31,7 +31,7 @@ export const NotFound = () => {
             <div className="error__message message">
               <h1 className="message__title">Page Not Found</h1>
               <p className="message__text">
-                We're sorry, the page you were looking for isn't found here. The
+                We are sorry, the page you were looking for doesn't exists. The
                 link you followed may either be broken or no longer exists.
                 Please try again, or take a look at our.
               </p>

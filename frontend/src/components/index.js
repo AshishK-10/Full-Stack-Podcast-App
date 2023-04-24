@@ -1,10 +1,10 @@
 import Sidebar from './Sidebar';
 import Searchbar from './Searchbar';
-import SongCard from './SongCard';
+import PodcastCard from './PodcastCard';
 import TopPlay from './TopPlay';
 import ArtistCard from './ArtistCard';
 import DetailsHeader from './DetailsHeader';
-import SongBar from './SongBar';
+import PodcastBar from './PodcastBar';
 import MusicPlayer from './MusicPlayer';
 import Loader from './Loader';
 import Error from './Error';
@@ -12,11 +12,11 @@ import Error from './Error';
 export {
   TopPlay,
   Sidebar,
-  SongCard,
+  PodcastCard,
   Searchbar,
   ArtistCard,
   DetailsHeader,
-  SongBar,
+  PodcastBar,
   MusicPlayer,
   Loader,
   Error,
