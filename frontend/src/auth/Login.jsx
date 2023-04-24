@@ -56,7 +56,7 @@ const Login = ({ setIsLogin }) => {
   };
 
   return (
-    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden shadow-xl bg-green-500 ">
+    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden shadow-xl bg-gradient-to-br from-violet-400 to-indigo-600 ">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
         <h1 className="text-4xl font-bold text-center text-purple-700">
           Login
@@ -98,7 +98,7 @@ const Login = ({ setIsLogin }) => {
           </div>
           <div className="mt-6">
             <button
-              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+              className="w-full text-lg sm:text-2xl px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
               onClick={submitHandler}
             >
               Login

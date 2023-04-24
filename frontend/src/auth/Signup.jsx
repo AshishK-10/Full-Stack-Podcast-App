@@ -67,7 +67,7 @@ const Signup = ({ setIsLogin }) => {
           "Content-Type": "application/json",
         },
       };
-       await axios
+      await axios
         .post(
           `${import.meta.env.VITE_BASE_URL}/user`,
           { name, email, password, pic },
@@ -87,7 +87,7 @@ const Signup = ({ setIsLogin }) => {
   };
 
   return (
-    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden shadow-xl bg-green-500">
+    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden shadow-xl bg-gradient-to-br from-violet-400 to-indigo-600">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
         <h1 className="text-4xl font-bold text-center text-purple-700">
           Sign up
@@ -146,7 +146,36 @@ const Signup = ({ setIsLogin }) => {
           </div>
 
           <div className="mb-2">
-            <label
+            <div className=" border border-gray-100 bg-white p-4 text-center flex flex-col justify-center shadow-md">
+              <label
+                htmlFor="pic"
+                className="flex flex-col h-20 w-20 justify-center mx-auto rounded-full items-center shadow-lg gap-2 cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-10 w-10 fill-white stroke-indigo-500"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+              </label>
+                <span className="text-gray-600 mt-2 font-medium">Upload Profile Picture</span>
+              <input
+                id="pic"
+                type="file"
+                className="hidden"
+                onChange={(e) => {
+                  postDetails(e.target.files[0]);
+                }}
+              />
+            </div>
+            {/* <label
               htmlFor="pic"
               className="block text-sm font-semibold text-gray-800"
             >
@@ -159,12 +188,12 @@ const Signup = ({ setIsLogin }) => {
               onChange={(e) => {
                 postDetails(e.target.files[0]);
               }}
-            />
+            /> */}
           </div>
 
           <div className="mt-6">
             <button
-              className={`w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600 
+              className={`w-full text-lg sm:text-2xl px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600 
                disabled:bg-purple-200 disabled:cursor-not-allowed`}
               disabled={loading}
               onClick={submitDetails}

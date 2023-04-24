@@ -18,6 +18,7 @@ import {
 } from './pages';
 import { getAllPodcasts } from '../data';
 import { setPodcasts } from './redux/features/podcastSlice';
+import Logout from './pages/Logout';
 
 const App = () => {
   const { activeSong, isVideoPlaying } = useSelector((state) => state.player);
@@ -31,6 +32,7 @@ const App = () => {
     const { token } = JSON.parse(localData) || '';
     getAllPodcasts(token).then((res) => dispatch(setPodcasts(res)));
   }, [isLogin]);
+  console.log("isloggedin",isLogin)
 
   return (
     <>
@@ -56,6 +58,7 @@ const App = () => {
               <div className="flex-1 h-fit pb-40">
                 <Routes>
                   <Route path="/discover" element={<Discover />} />
+                  <Route path="/logout" element={<Logout />} />
                   <Route path="/top-charts" element={<TopCharts />} />
                   <Route path="/artists/:id" element={<ArtistDetails />} />
                   <Route path="/songs/:songid" element={<SongDetails />} />
