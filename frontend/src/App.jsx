@@ -13,7 +13,7 @@ import {
   AroundYou,
   Discover,
   Search,
-  SongDetails,
+  PodcastDetails,
   TopCharts,
   NotFound,
 } from './pages';
@@ -21,10 +21,8 @@ import { getAllPodcasts } from '../data';
 import { setPodcasts } from './redux/features/podcastSlice';
 
 const App = () => {
-  const { activeSong, isVideoPlaying } = useSelector((state) => state.player);
-  const [isLogin, setIsLogin] = useState(
-    JSON.parse(localStorage?.getItem('loggedIn')) || false
-  );
+  const { activePodcast, isVideoPlaying } = useSelector((state) => state.player);
+  const [isLogin, setIsLogin] = useState(JSON.parse(localStorage?.getItem('loggedIn')) || false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,6 +37,7 @@ const App = () => {
         <Route exact path="/signup" element={<Signup />} />
       </Routes> */}
       {!isLogin ? (
+        <>
         <Routes>
           <Route exact path="/" element={<Login setIsLogin={setIsLogin} />} />
           <Route
@@ -47,6 +46,7 @@ const App = () => {
             element={<Signup setIsLogin={setIsLogin} />}
           />
         </Routes>
+        </>
       ) : (
         <div className="relative flex h-[100vh]">
           <Sidebar />
@@ -60,7 +60,7 @@ const App = () => {
                   <Route path="/top-charts" element={<TopCharts />} />
                   <Route path="/around-you" element={<AroundYou />} />
                   <Route path="/artists/:id" element={<ArtistDetails />} />
-                  <Route path="/songs/:songid" element={<SongDetails />} />
+                  <Route path="/podcasts/:podcastid" element={<PodcastDetails />} />
                   <Route path="/search/:searchTerm" element={<Search />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
@@ -71,13 +71,13 @@ const App = () => {
             </div>
           </div>
 
-          {activeSong?.name && activeSong?.type === 'audio' && (
+          {activePodcast?.name && activePodcast?.type === 'audio' && (
             <div className="absolute h-28 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-t-3xl z-10">
               <MusicPlayer />
             </div>
           )}
 
-          {isVideoPlaying && activeSong?.name && activeSong?.type === 'video' && (
+          {isVideoPlaying && activePodcast?.name && activePodcast?.type === 'video' && (
             <div className="absolute h-28 top-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#2a2a80] backdrop-blur-lg rounded-t-3xl z-10">
               <VideoPlayer />
             </div>

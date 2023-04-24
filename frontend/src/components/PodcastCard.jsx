@@ -4,18 +4,18 @@ import PlayPause from './PlayPause';
 import image from '../assets/default.jpg';
 import {
   playPause,
-  setActiveSong,
+  setActivePodcast,
   setVideoPlaying,
 } from '../redux/features/playerSlice';
-const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
+const PodcastCard = ({ podcast, i, isPlaying, activePodcast, data }) => {
   const dispatch = useDispatch();
   const handlePauseClick = () => {
     dispatch(playPause(false));
   };
   const handlePlayClick = () => {
-    dispatch(setActiveSong({ song, data, i }));
+    dispatch(setActivePodcast({ podcast, data, i }));
     dispatch(playPause(true));
-    if (song.type === 'video') {
+    if (podcast.type === 'video') {
       dispatch(setVideoPlaying(true));
     }
   };
@@ -24,31 +24,31 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
       <div className="relative w-full h-56 group overflow-hidden">
         <div
           className={` absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${
-            activeSong?.name === song.name
+            activePodcast?.name === podcast.name
               ? 'flex bg-black bg-opacity-70'
               : 'hidden'
           }`}
         >
           <PlayPause
-            song={song}
+            podcast={podcast}
             handlePause={handlePauseClick}
             handlePlay={handlePlayClick}
             isPlaying={isPlaying}
-            activeSong={activeSong}
+            activePodcast={activePodcast}
           />
         </div>
-        <img src={song?.coverArt || image} alt="" />
+        <img src={podcast?.coverArt || image} alt="" />
       </div>
       <div className="mt-4 flex flex-col">
         <p className="font-semibold text-lg text-white truncate">
-          <Link to={`/songs/${song?._id}`}>{song.name}</Link>
+          <Link to={`/podcasts/${podcast?._id}`}>{podcast.name}</Link>
         </p>
         <p className="mt-1 text-sm text-gray-300 truncate">
-          <Link to={`/artists/${song?.artist}`}>{song.creator}</Link>
+          <Link to={`/artists/${podcast?.artist}`}>{podcast.creator}</Link>
         </p>
       </div>
     </div>
   );
 };
 
-export default SongCard;
+export default PodcastCard;

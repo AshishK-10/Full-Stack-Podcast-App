@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom';
 import PlayPause from './PlayPause';
 import image from '../assets/default.jpg';
 
-const SongBar = ({
-  song,
+const PodcastBar = ({
+  podcast,
   i,
   artistId,
   isPlaying,
-  activeSong,
+  activePodcast,
   handlePauseClick,
   handlePlayClick,
 }) => (
   <div
     className={`w-full flex flex-row items-center hover:bg-[#4c426e] ${
-      activeSong?.name === song?.name ? 'bg-[#4c426e]' : 'bg-transparent'
+      activePodcast?.name === podcast?.name ? 'bg-[#4c426e]' : 'bg-transparent'
     } py-2 p-4 rounded-lg cursor-pointer mb-2`}
   >
     <h3 className="font-bold text-base text-white mr-3">{i + 1}.</h3>
@@ -24,38 +24,38 @@ const SongBar = ({
         className="w-20 h-20 rounded-lg"
         src={
           artistId
-            ? song?.attributes?.artwork?.url
+            ? podcast?.attributes?.artwork?.url
                 .replace('{w}', '125')
                 .replace('{h}', '125')
-            : song?.coverArt || image
+            : podcast?.coverArt || image
         }
-        alt={song?.name}
+        alt={podcast?.name}
       />
       <div className="flex-1 flex flex-col justify-center mx-3">
         {!artistId ? (
-          <Link to={`/songs/${song.key}`}>
-            <p className="text-xl font-bold text-white">{song?.name}</p>
+          <Link to={`/podcasts/${podcast.key}`}>
+            <p className="text-xl font-bold text-white">{podcast?.name}</p>
           </Link>
         ) : (
           <p className="text-xl font-bold text-white">
-            {song?.attributes?.name}
+            {podcast?.attributes?.name}
           </p>
         )}
         <p className="text-base text-gray-300 mt-1">
-          {artistId ? song?.attributes?.albumName : song?.subtitle}
+          {artistId ? podcast?.attributes?.albumName : podcast?.subtitle}
         </p>
       </div>
     </div>
     {!artistId ? (
       <PlayPause
         isPlaying={isPlaying}
-        activeSong={activeSong}
-        song={song}
+        activePodcast={activePodcast}
+        podcast={podcast}
         handlePause={handlePauseClick}
-        handlePlay={() => handlePlayClick(song, i)}
+        handlePlay={() => handlePlayClick(podcast, i)}
       />
     ) : null}
   </div>
 );
 
-export default SongBar;
+export default PodcastBar;

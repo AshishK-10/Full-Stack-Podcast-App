@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  currentSongs: [],
+  currentPodcasts: [],
   currentIndex: 0,
   isActive: false,
   isPlaying: false,
-  activeSong: {},
+  activePodcast: {},
   genreListId: '',
   isVideoPlaying: false,
 };
@@ -17,29 +17,29 @@ const playerSlice = createSlice({
     setVideoPlaying: (state, action) => {
       state.isVideoPlaying = action.payload;
     },
-    setActiveSong: (state, action) => {
-      state.activeSong = action.payload.song;
-      state.currentSongs = action.payload.song.file;
+    setActivePodcast: (state, action) => {
+      state.activePodcast = action.payload.podcast;
+      state.currentPodcasts = action.payload.podcast.file;
       state.currentIndex = action.payload.i;
       state.isActive = true;
     },
 
-    nextSong: (state, action) => {
-      if (state.currentSongs[action.payload]?.track) {
-        state.activeSong = state.currentSongs[action.payload]?.track;
+    nextPodcast: (state, action) => {
+      if (state.currentPodcasts[action.payload]?.track) {
+        state.activePodcast = state.currentPodcasts[action.payload]?.track;
       } else {
-        state.activeSong = state.currentSongs[action.payload];
+        state.activePodcast = state.currentPodcasts[action.payload];
       }
 
       state.currentIndex = action.payload;
       state.isActive = true;
     },
 
-    prevSong: (state, action) => {
-      if (state.currentSongs[action.payload]?.track) {
-        state.activeSong = state.currentSongs[action.payload]?.track;
+    prevPodcast: (state, action) => {
+      if (state.currentPodcasts[action.payload]?.track) {
+        state.activePodcast = state.currentPodcasts[action.payload]?.track;
       } else {
-        state.activeSong = state.currentSongs[action.payload];
+        state.activePodcast = state.currentPodcasts[action.payload];
       }
 
       state.currentIndex = action.payload;
@@ -57,9 +57,9 @@ const playerSlice = createSlice({
 });
 
 export const {
-  setActiveSong,
-  nextSong,
-  prevSong,
+  setActivePodcast,
+  nextPodcast,
+  prevPodcast,
   playPause,
   selectGenreListId,
   setVideoPlaying,

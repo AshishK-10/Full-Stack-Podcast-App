@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Error, Loader, SongCard } from '../components';
+import { Error, Loader, PodcastCard } from '../components';
 import NewPodcast from '../components/NewPodcast';
 import { useState } from 'react';
 
 const Discover = () => {
   const [newPodcast, setNewPodcast] = useState(false);
   const dispatch = useDispatch();
-  const { activeSong, isPlaying } = useSelector((state) => state.player);
+  const { activePodcast, isPlaying } = useSelector((state) => state.player);
   const { data } = useSelector((state) => state.podcasts);
   console.log(data);
 
@@ -16,12 +16,12 @@ const Discover = () => {
         <h2 className="font-bold text-3xl text-white text-left">Discover</h2>
       </div>
       <div className="flex flex-wrap sm:justify-start text-white justify-center gap-8">
-        {data?.map((song, i) => (
-          <SongCard
+        {data?.map((podcast, i) => (
+          <PodcastCard
             key={i}
-            song={song}
+            podcast={podcast}
             isPlaying={isPlaying}
-            activeSong={activeSong}
+            activePodcast={activePodcast}
             i={i}
             data={data}
           />
