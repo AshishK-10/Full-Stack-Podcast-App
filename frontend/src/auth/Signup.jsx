@@ -75,6 +75,7 @@ const Signup = ({ setIsLogin }) => {
         .then((res) => toast.success(`Welcome ${res.name}`));
 
       localStorage.setItem('userInfo', JSON.stringify(data));
+      localStorage.setItem('loggedIn', JSON.stringify(true));
       setLoading(false);
 
       setIsLogin(true);

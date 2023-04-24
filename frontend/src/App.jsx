@@ -22,7 +22,9 @@ import { setPodcasts } from './redux/features/podcastSlice';
 
 const App = () => {
   const { activeSong, isVideoPlaying } = useSelector((state) => state.player);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(
+    JOSN.parse(localStorage?.getItem('loggedIn')) || false
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
