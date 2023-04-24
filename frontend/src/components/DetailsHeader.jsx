@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import image from '../assets/image.jpg';
-const DetailsHeader = ({ artist, songData }) => {
+const DetailsHeader = ({ artist, podcastData }) => {
   return (
     <div className="relative w-full flex flex-col">
       <div className="w-full bg-gradient-to-1 from-transparent to-black sm:h-40 h-28">
         <div className="absolute inset-0 flex items-center">
-          {/* <img src={songData[0].coverArt} alt="" /> */}
+          {/* <img src={podcastData[0].coverArt} alt="" /> */}
           <img
             src={image}
             alt=""
@@ -13,12 +13,12 @@ const DetailsHeader = ({ artist, songData }) => {
           />
           <div className="ml-5">
             <p className="font-bold sm:text-3xl text-xl text-white">
-              {songData ? songData?.name : artist?.name}
+              {podcastData ? podcastData?.name : artist?.name}
             </p>
-            {songData ? (
-              <Link to={`/artists/${songData?.artist?._id}`}>
+            {podcastData ? (
+              <Link to={`/artists/${podcastData?.artist?._id}`}>
                 <p className="text-sm sm:text-2xl text-gray-400 mt-2">
-                  {songData?.artist?.name}
+                  {podcastData?.artist?.name}
                 </p>
               </Link>
             ) : (

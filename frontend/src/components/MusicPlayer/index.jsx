@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { nextSong, prevSong, playPause } from '../../redux/features/playerSlice';
+import { nextPodcast, prevPodcast, playPause } from '../../redux/features/playerSlice';
 import Controls from './Controls';
 import Player from './Player';
 import Seekbar from './Seekbar';
@@ -9,7 +9,7 @@ import Track from './Track';
 import VolumeBar from './VolumeBar';
 
 const MusicPlayer = () => {
-  const { activeSong, currentSongs, currentIndex, isActive, isPlaying } = useSelector((state) => state.player);
+  const { activePodcast, currentPodcasts, currentIndex, isActive, isPlaying } = useSelector((state) => state.player);
   const [duration, setDuration] = useState(0);
   const [seekTime, setSeekTime] = useState(0);
   const [appTime, setAppTime] = useState(0);
@@ -19,7 +19,7 @@ const MusicPlayer = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (currentSongs.length) dispatch(playPause(true));
+    if (currentPodcasts.length) dispatch(playPause(true));
   }, [currentIndex]);
 
   const handlePlayPause = () => {
@@ -32,29 +32,29 @@ const MusicPlayer = () => {
     }
   };
 
-  const handleNextSong = () => {
+  const handleNextPodcast = () => {
     dispatch(playPause(false));
 
     if (!shuffle) {
-      dispatch(nextSong((currentIndex + 1) % currentSongs.length));
+      dispatch(nextPodcast((currentIndex + 1) % currentPodcasts.length));
     } else {
-      dispatch(nextSong(Math.floor(Math.random() * currentSongs.length)));
+      dispatch(nextPodcast(Math.floor(Math.random() * currentPodcasts.length)));
     }
   };
 
-  const handlePrevSong = () => {
+  const handlePrevPodcast = () => {
     if (currentIndex === 0) {
-      dispatch(prevSong(currentSongs.length - 1));
+      dispatch(prevPodcast(currentPodcasts.length - 1));
     } else if (shuffle) {
-      dispatch(prevSong(Math.floor(Math.random() * currentSongs.length)));
+      dispatch(prevPodcast(Math.floor(Math.random() * currentPodcasts.length)));
     } else {
-      dispatch(prevSong(currentIndex - 1));
+      dispatch(prevPodcast(currentIndex - 1));
     }
   };
 
   return (
     <div className="relative sm:px-12 px-8 w-full flex items-center justify-between">
-      <Track isPlaying={isPlaying} isActive={isActive} activeSong={activeSong} />
+      <Track isPlaying={isPlaying} isActive={isActive} activePodcast={activePodcast} />
       <div className="flex-1 flex flex-col items-center justify-center">
         <Controls
           isPlaying={isPlaying}
@@ -63,10 +63,10 @@ const MusicPlayer = () => {
           setRepeat={setRepeat}
           shuffle={shuffle}
           setShuffle={setShuffle}
-          currentSongs={currentSongs}
+          currentPodcasts={currentPodcasts}
           handlePlayPause={handlePlayPause}
-          handlePrevSong={handlePrevSong}
-          handleNextSong={handleNextSong}
+          handlePrevPodcast={handlePrevPodcast}
+          handleNextPodcast={handleNextPodcast}
         />
         <Seekbar
           value={appTime}
@@ -77,13 +77,13 @@ const MusicPlayer = () => {
           appTime={appTime}
         />
         <Player
-          activeSong={activeSong}
+          activePodcast={activePodcast}
           volume={volume}
           isPlaying={isPlaying}
           seekTime={seekTime}
           repeat={repeat}
           currentIndex={currentIndex}
-          onEnded={handleNextSong}
+          onEnded={handleNextPodcast}
           onTimeUpdate={(event) => setAppTime(event.target.currentTime)}
           onLoadedData={(event) => setDuration(event.target.duration)}
         />

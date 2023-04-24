@@ -2,7 +2,7 @@
 import React, { useRef, useEffect } from 'react';
 
 const Player = ({
-  activeSong,
+  activePodcast,
   isPlaying,
   volume,
   seekTime,
@@ -32,7 +32,7 @@ const Player = ({
   return (
     <>
       <audio
-        src={activeSong?.file}
+        src={activePodcast?.file}
         ref={ref}
         loop={repeat}
         onEnded={onEnded}

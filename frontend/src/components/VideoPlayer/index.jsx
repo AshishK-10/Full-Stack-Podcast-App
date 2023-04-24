@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { playPause, setVideoPlaying } from '../../redux/features/playerSlice';
 const VideoPlayer = () => {
-  const { activeSong } = useSelector((state) => state.player);
+  const { activePodcast } = useSelector((state) => state.player);
   const dispatch = useDispatch();
   return (
     <>
@@ -20,7 +20,7 @@ const VideoPlayer = () => {
             X
           </span>
           <video autoPlay controls>
-            <source src={activeSong?.file}></source>
+            <source src={activePodcast?.file}></source>
           </video>
         </div>
       </div>
