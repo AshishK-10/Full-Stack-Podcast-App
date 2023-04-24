@@ -1,6 +1,7 @@
 // handles all the async related errors in express
 const asyncHandler = require('express-async-handler')
-const User = require('../model/userModel') //user modal
+const User = require('../model/userModel') //user model
+const Podcast = require('../model/podcastModel') // podcast model
 const generateToken = require('../config/generateToken') // created a jwt token
 
 // create the new user
@@ -84,4 +85,22 @@ const allUsers = asyncHandler(async (req, res)=>{
 
 });
 
-module.exports = {registerUser, authUser, allUsers};
+
+const podcastsByArtist = asyncHandler(async (req, res)=> {
+ const {u_id} = req.params;
+ const podcasts = await Podcast.find({artist: u_id});
+ const user = await User.findById(u_id, "-password");
+ if(podcasts)
+ {
+  res.status(200).json({
+    artist: user,
+    podcasts: podcasts
+  })
+ }else{
+  res.status(400);
+    throw new Error("Unable to fetch podcasts");
+ }
+});
+
+
+module.exports = {registerUser, authUser, allUsers, podcastsByArtist};
