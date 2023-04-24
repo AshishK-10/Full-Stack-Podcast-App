@@ -1,10 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import { DetailsHeader, Error, Loader, RelatedSongs } from '../components';
+import { DetailsHeader, Error, Loader} from '../components';
 import { setActiveSong, playPause } from '../redux/features/playerSlice';
 import { useEffect } from 'react';
 import { getPodcast } from '../../data';
 import { useState } from 'react';
+import {  HiHeart,  HiUserGroup, HiUserCircle } from 'react-icons/hi';
 
 const SongDetails = () => {
   // const dispatch = useDispatch();
@@ -32,16 +34,16 @@ const SongDetails = () => {
             {songData?.description}
           </p>
           ;
-          <p className="text-gray-400 text-base my-1">
-            Artist: {songData?.artist?.name}
+          <p className="text-gray-400 text-xl my-1 flex items-center gap-2">
+           <HiUserCircle /> {songData?.artist?.name}
           </p>
           ;
-          <p className="text-gray-400 text-base my-1">
-            views: {songData?.views}
+          <p className="text-gray-400  my-1 text-xl flex items-center gap-2">
+            <HiUserGroup /> <span className="">{songData?.views}</span>
           </p>
           ;
-          <p className="text-gray-400 text-base my-1">
-            likes: {songData?.likes?.length}
+          <p className="text-gray-400 text-xl my-1 flex items-center gap-2">
+            <HiHeart /> <span className="">{songData?.likes?.length}</span>
           </p>
           ;
         </div>

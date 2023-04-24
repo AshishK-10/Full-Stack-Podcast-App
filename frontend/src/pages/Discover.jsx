@@ -1,14 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Error, Loader, SongCard } from '../components';
+import {  useSelector } from 'react-redux';
+import {  SongCard } from '../components';
 import NewPodcast from '../components/NewPodcast';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Discover = () => {
   const [newPodcast, setNewPodcast] = useState(false);
-  const dispatch = useDispatch();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
   const { data } = useSelector((state) => state.podcasts);
-  console.log(data);
+  const [userId,setUserId] = useState('')
+  const [token,setToken] = useState('')
+
+  useEffect(() => {
+    const localData = localStorage?.getItem('userInfo');
+    const { token,_id } = JSON.parse(localData) || '';
+    setUserId(_id);
+    setToken(token);
+  })
 
   return (
     <div className="flex flex-col">
@@ -24,6 +32,8 @@ const Discover = () => {
             activeSong={activeSong}
             i={i}
             data={data}
+            token={token}
+            u_id={userId}
           />
         ))}
       </div>

@@ -1,53 +1,54 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import axios from 'axios';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Signup = ({ setIsLogin }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [pic, setPic] = useState();
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   function toDiscover() {
-    navigate('/discover');
+    navigate("/discover");
   }
 
   const postDetails = (pics) => {
     setLoading(true);
     if (pics === undefined) {
-      toast.warn('Pic is undefined');
+      toast.warn("Pic is undefined");
       setLoading(false);
       return;
     }
-    if (pics.type === 'image/jpeg' || pics.type === 'image/png') {
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
       const data = new FormData();
-      data.append('file', pics);
-      data.append('upload_preset', 'podcastApp');
-      data.append('cloud_name', 'dnsbti7cd');
+      data.append("file", pics);
+      data.append("upload_preset", "podcastApp");
+      data.append("cloud_name", "dnsbti7cd");
 
       // put this url in the env of react
 
-      fetch('https://api.cloudinary.com/v1_1/dnsbti7cd/image/upload', {
-        method: 'post',
+      fetch(`${import.meta.env.VITE_CLOUDINARY_URL}/image/upload`, {
+        method: "post",
         body: data,
       })
         .then((res) => res.json())
         .then((data) => {
-          toast.success('Profile pic Uploaded');
+          toast.success("Profile pic Uploaded");
           setPic(data.url.toString());
           setLoading(false);
         })
         .catch((err) => {
-          toast.error('Something went wrong');
+          toast.error("Something went wrong");
           setLoading(false);
           return;
         });
     } else {
-      toast.error('Please upload only image files');
+      toast.error("Please upload only image files");
       setLoading(false);
       return;
     }
@@ -57,28 +58,28 @@ const Signup = ({ setIsLogin }) => {
     e.preventDefault();
     setLoading(true);
     if (!name || !email || !password) {
-      toast.warn('Please enter all the details');
+      toast.warn("Please enter all the details");
       return;
     }
     try {
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       };
-      const { data } = await axios
+       await axios
         .post(
-          'http://localhost:5000/api/user',
+          `${import.meta.env.VITE_BASE_URL}/user`,
           { name, email, password, pic },
           config
         )
-        .then((res) => toast.success(`Welcome ${res.name}`));
-
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      setLoading(false);
-
-      setIsLogin(true);
-      toDiscover();
+        .then((res) => {
+          localStorage.setItem("userInfo", JSON.stringify(res.data));
+          setLoading(false);
+          setIsLogin(true);
+          toDiscover();
+          toast.success(`Welcome ${res.data.name}`);
+        });
     } catch (error) {
       toast.error(error.response.data.message);
       setLoading(false);
@@ -94,7 +95,7 @@ const Signup = ({ setIsLogin }) => {
         <form className="mt-6" autoComplete="off">
           <div className="mb-2">
             <label
-              for="email"
+              forHtml="email"
               className="block text-sm font-semibold text-gray-800"
             >
               Email
@@ -111,7 +112,7 @@ const Signup = ({ setIsLogin }) => {
           </div>
           <div className="mb-2">
             <label
-              for="username"
+              forHtml="username"
               className="block text-sm font-semibold text-gray-800"
             >
               Username
@@ -128,7 +129,7 @@ const Signup = ({ setIsLogin }) => {
           </div>
           <div className="mb-2">
             <label
-              for="password"
+              forHtml="password"
               className="block text-sm font-semibold text-gray-800"
             >
               Password
@@ -146,7 +147,7 @@ const Signup = ({ setIsLogin }) => {
 
           <div className="mb-2">
             <label
-              for="pic"
+              forHtml="pic"
               className="block text-sm font-semibold text-gray-800"
             >
               Profile Image
@@ -173,8 +174,8 @@ const Signup = ({ setIsLogin }) => {
           </div>
         </form>
         <p className="mt-8 text-xs font-light text-center text-gray-700">
-          {' '}
-          Already have an account?{' '}
+          {" "}
+          Already have an account?{" "}
           <Link to="/" className="font-medium text-purple-600 hover:underline">
             Login
           </Link>

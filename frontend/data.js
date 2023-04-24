@@ -7,7 +7,7 @@ export const getAllPodcasts = async (token) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token} `,
+        'Authorization': `Bearer ${token} `,
       },
     };
     return await axios

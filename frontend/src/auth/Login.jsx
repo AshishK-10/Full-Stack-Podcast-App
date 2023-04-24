@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/no-unknown-property */
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Signup from './Signup';
@@ -33,7 +35,7 @@ const Login = ({ setIsLogin }) => {
       };
       const { data } = await axios
         .post(
-          'http://localhost:5000/api/user/login',
+          `${import.meta.env.VITE_BASE_URL}/user/login`,
           { email, password },
           config
         )
@@ -61,7 +63,7 @@ const Login = ({ setIsLogin }) => {
         <form className="mt-6" autoComplete="off">
           <div className="mb-2">
             <label
-              for="email"
+              forHtml="email"
               className="block text-sm font-semibold text-gray-800"
             >
               Email
@@ -78,7 +80,7 @@ const Login = ({ setIsLogin }) => {
           </div>
           <div className="mb-2">
             <label
-              for="password"
+              forHtml="password"
               className="block text-sm font-semibold text-gray-800"
             >
               Password
@@ -104,7 +106,6 @@ const Login = ({ setIsLogin }) => {
         </form>
 
         <p className="mt-8 text-xs font-light text-center text-gray-700">
-          {' '}
           Don't have an account?
           <Link
             to="/signup"

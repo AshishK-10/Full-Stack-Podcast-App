@@ -12,6 +12,6 @@ router.route('/:p_id')
 .get(protect, getPodcast)
 
 router.route('/likedPodcast')
-.post(protect, likedPodcast);
+.patch(protect, likedPodcast);
 
 module.exports = router;
