@@ -11,7 +11,6 @@ const Search = () => {
   const podcasts = data.filter((item) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  console.log(podcasts);
   return (
     <div className="flex flex-col">
       {podcasts.length > 0 ? (

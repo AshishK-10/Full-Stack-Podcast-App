@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router';
 import { getAllPodcasts } from '../../data';
 import { useDispatch } from 'react-redux';
 import { setPodcasts } from '../redux/features/podcastSlice';
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const NewPodcast = ({ setNewPodcast }) => {
   const dispatch = useDispatch();
@@ -18,7 +21,6 @@ const NewPodcast = ({ setNewPodcast }) => {
   const navigate = useNavigate();
 
   function toPodcast(id) {
-    console.log(id);
     navigate(`/podcasts/${id}`);
   }
 
@@ -28,16 +30,14 @@ const NewPodcast = ({ setNewPodcast }) => {
     setToken(token);
   }, []);
 
-  // console.log('details', details);
 
   const handleFile = (podcastFile) => {
     setLoading(true);
     if (podcastFile === undefined) {
-      console.log('pic is undefined'); // change to toast
+      toast.info("Enter a valid file") // change to toast
       setLoading(false);
       return;
     }
-    console.log(podcastFile.type);
     if (podcastFile.type === 'audio/mpeg') setType('audio');
     else if (podcastFile.type === 'video/mp4') setType('video');
 
@@ -64,7 +64,7 @@ const NewPodcast = ({ setNewPodcast }) => {
           return;
         });
     } else {
-      console.log('this is the not the image file'); // change to toast
+      toast.warn("Please enter a valid file")// change to toast
       setLoading(false);
       return;
     }
@@ -74,7 +74,7 @@ const NewPodcast = ({ setNewPodcast }) => {
     e.preventDefault();
     setLoading(true);
     if (!name || !description || !file) {
-      console.log('please enter all the details'); //change to toast
+      toast.info('Please enter all details')//change to toast
       return;
     }
     try {
@@ -84,21 +84,20 @@ const NewPodcast = ({ setNewPodcast }) => {
           Authorization: `Bearer ${token} `,
         },
       };
-      const { data } = await axios.post(
-        'http://localhost:5000/api/podcast',
+      await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/podcast`,
         { name, description, file, type, artist },
         config
-      );
-      // toast of successful
-      const podData = await getAllPodcasts(token);
+      ).then(res => {toast.success("Podcast added successfully"); 
+      getAllPodcasts(token).then(result => dispatch(setPodcasts(result)));
       dispatch(setPodcasts(podData));
-      localStorage.setItem('podcastData', JSON.stringify(data));
-      setLoading(false);
+      localStorage.setItem('podcastData', JSON.stringify(res.data));
+      toPodcast(res.data._id);
+      setLoading(false);})
 
       // move to the main page -> success
-      toPodcast(data._id);
     } catch (error) {
-      console.log(error); // toast to display error!
+      toast.warn("Something went wrong.") // toast to display error!
       setLoading(false);
     }
   };
@@ -169,7 +168,7 @@ const NewPodcast = ({ setNewPodcast }) => {
               </div>
               <div className="mt-6">
                 <button
-                  className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600 disabled:bg-purple-200 disabled:cursor-not-allowed"
+                  className="w-full text-xl  px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600 disabled:bg-purple-200 disabled:cursor-not-allowed"
                   disabled={loading}
                   onClick={submitHandler}
                 >

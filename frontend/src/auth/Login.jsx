@@ -40,7 +40,6 @@ const Login = ({ setIsLogin }) => {
           config
         )
         .then((res) => {
-          // console.log(res.data);
           localStorage.setItem('userInfo', JSON.stringify(res.data));
           localStorage.setItem('loggedIn', JSON.stringify(true));
           toast.success('Login Success');

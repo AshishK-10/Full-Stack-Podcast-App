@@ -20,7 +20,6 @@ const ArtistDetails = () => {
     setUserId(_id);
     getArtist(token, id).then((res) => setArtistData(res));
   }, [id]);
-  console.log(artistData);
   return (
     <div className="flex flex-col mt-12">
       <DetailsHeader artistData={artistData} />

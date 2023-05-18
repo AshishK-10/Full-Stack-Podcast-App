@@ -30,7 +30,6 @@ const App = () => {
     const { token } = JSON.parse(localData) || '';
     getAllPodcasts(token).then((res) => dispatch(setPodcasts(res)));
   }, [isLogin]);
-  console.log("isloggedin",isLogin)
 
   return (
     <>

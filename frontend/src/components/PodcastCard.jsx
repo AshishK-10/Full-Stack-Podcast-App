@@ -14,7 +14,6 @@ import {  useState } from 'react';
 import axios from 'axios'
 import { getAllPodcasts } from '../../data';
 const PodcastCard = ({ podcast, i, isPlaying, activePodcast, data, u_id,token,is_liked }) => {
-  console.log(podcast)
   const [choice,setChoice] = useState(is_liked || 0);
   const dispatch = useDispatch();
   const handlePauseClick = () => {
@@ -44,7 +43,7 @@ const handleLike = async(val) => {
     
     await axios
       .patch(`${import.meta.env.VITE_BASE_URL}/podcast/likedPodcast`,{p_id,u_id,choice}, config)
-      .then((res) => {console.log('like',res);
+      .then((res) => {
       getAllPodcasts(token).then((res) => dispatch(setPodcasts(res)));
     });
   } catch (error) {

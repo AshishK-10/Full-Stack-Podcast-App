@@ -19,7 +19,6 @@ const PodcastDetails = () => {
     getPodcast(token, podcastid).then((res) => setPodcastData(res));
   }, [podcastid]);
 
-  console.log(podcastData);
 
   return (
     <div className="flex flex-col mt-12">

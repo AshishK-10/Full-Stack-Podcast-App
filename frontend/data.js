@@ -9,7 +9,7 @@ export const getAllPodcasts = async (token) => {
       },
     };
     return await axios
-      .get('http://localhost:5000/api/podcast', config)
+      .get(`${import.meta.env.VITE_BASE_URL}/podcast`, config)
       .then((res) => res.data);
   } catch (error) {
     console.log(error);
@@ -24,7 +24,7 @@ export const getPodcast = async (token, id) => {
       },
     };
     return await axios
-      .get(`http://localhost:5000/api/podcast/${id}`, config)
+      .get(`${import.meta.env.VITE_BASE_URL}/podcast/${id}`, config)
       .then((res) => res.data);
   } catch (error) {
     console.log(error);
@@ -39,7 +39,7 @@ export const getArtist = async (token, id) => {
       },
     };
     return await axios
-      .get(`http://localhost:5000/api/user/${id}`, config)
+      .get(`${import.meta.env.VITE_BASE_URL}/user/${id}`, config)
       .then((res) => res.data)
       .catch(err => console.log(err))
   } catch (error) {
