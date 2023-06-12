@@ -13,7 +13,7 @@ import {
   Discover,
   Search,
   PodcastDetails,
-ToponCharts,
+TopCharts,
   NotFound,
 } from "./pages";
 import { getAllPodcasts } from "../data";
