@@ -13,12 +13,11 @@ import {
   Discover,
   Search,
   PodcastDetails,
-  TopCharts,
+ToponCharts,
   NotFound,
 } from "./pages";
 import { getAllPodcasts } from "../data";
 import { setPodcasts } from "./redux/features/podcastSlice";
-import Logout from "./pages/Logout";
 
 const App = () => {
   const { activePodcast, isVideoPlaying } = useSelector(
