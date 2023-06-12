@@ -9,6 +9,13 @@ import { setLogout } from "../redux/features/podcastSlice";
 
 const NavLinks = ({ handleClick }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(setLogout());
+    navigate('/');
+    window.location.reload();
+  }
 
   return (
     <div className="mt-10">
@@ -27,7 +34,7 @@ const NavLinks = ({ handleClick }) => {
         key="Logout"
         to="/"
         className="flex flex-row justify-start items-center my-8 text-sm font-medium  text-gray-400 hover:text-cyan-400"
-        onClick={() => dispatch(setLogout())}
+        onClick={() => handleLogout()}
       >
         <HiLogout className="w-6 h-6 mr-2" />
         Logout

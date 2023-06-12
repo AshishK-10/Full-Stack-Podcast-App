@@ -86,7 +86,7 @@ const Signup = ({ setIsLogin }) => {
   };
 
   return (
-    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden shadow-xl bg-gradient-to-br from-violet-400 to-indigo-600">
+    <div className="relative flex flex-col justify-center overflow-hidden mt-6">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
         <h1 className="text-4xl font-bold text-center text-purple-700">
           Sign up

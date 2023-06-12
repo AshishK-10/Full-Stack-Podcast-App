@@ -44,21 +44,20 @@ const App = () => {
 
             <div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
               <div className="flex-1 h-fit pb-40">
-                <Routes>
-                  <Route path="/" element={ !isLogin && <Login setIsLogin={setIsLogin} />} />
+              <Routes>
+                  <Route path="/" element={ !isLogin ? <Login setIsLogin={setIsLogin}  /> : <Discover /> }  />
                   <Route 
                     path="/signup"
                     element={!isLogin && <Signup setIsLogin={setIsLogin} />}
                   />
-                  <Route path="/discover" element={isLogin && <Discover />} />
-                  <Route path="/logout" element={<Logout />} />
-                  <Route path="/top-charts" element={isLogin && <TopCharts />} />
-                  <Route path="/artists/:id" element={isLogin && <ArtistDetails />} />
+                  <Route path="/discover" element={!isLogin ?  <Login setIsLogin={setIsLogin} /> : <Discover />  } />
+                  <Route path="/top-charts" element={!isLogin ?  <Login setIsLogin={setIsLogin} /> :<TopCharts />} />
+                  <Route path="/artists/:id" element={!isLogin ?  <Login setIsLogin={setIsLogin} /> :<ArtistDetails />} />
                   <Route
                     path="/podcasts/:podcastid"
-                    element={isLogin && <PodcastDetails />}
+                    element={!isLogin ?  <Login setIsLogin={setIsLogin} /> :<PodcastDetails />}
                   />
-                  <Route path="/search/:searchTerm" element={isLogin && <Search />} />
+                  <Route path="/search/:searchTerm" element={!isLogin ?  <Login setIsLogin={setIsLogin} /> :<Search />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </div>
