@@ -9,9 +9,13 @@ const podcastSlice = createSlice({
     setPodcasts: (state, action) => {
       state.data = action.payload;
     },
+    setLogout: (state) => {
+      state.data = null;
+      localStorage.clear();
+    },
   },
 });
 
-export const { setPodcasts } = podcastSlice.actions;
+export const { setPodcasts, setLogout } = podcastSlice.actions;
 
 export default podcastSlice.reducer;

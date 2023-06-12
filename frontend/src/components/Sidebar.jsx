@@ -1,25 +1,41 @@
-import { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { RiCloseLine } from 'react-icons/ri';
-import logo  from '../assets/logo.jpg';
-import { links } from '../assets/constants';
-import { HiLogout, HiOutlineMenu } from 'react-icons/hi';
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { RiCloseLine } from "react-icons/ri";
+import logo from "../assets/logo.jpg";
+import { links } from "../assets/constants";
+import { HiLogout, HiOutlineMenu } from "react-icons/hi";
+import { useDispatch } from "react-redux";
+import { setLogout } from "../redux/features/podcastSlice";
 
-const NavLinks = ({ handleClick }) => (
-  <div className="mt-10">
-    {links.map((item) => (
+const NavLinks = ({ handleClick }) => {
+  const dispatch = useDispatch();
+
+  return (
+    <div className="mt-10">
+      {links.map((item) => (
+        <NavLink
+          key={item.name}
+          to={item.to}
+          className="flex flex-row justify-start items-center my-8 text-sm font-medium  text-gray-400 hover:text-cyan-400"
+          onClick={() => handleClick && handleClick()}
+        >
+          <item.icon className="w-6 h-6 mr-2" />
+          {item.name}
+        </NavLink>
+      ))}
       <NavLink
-        key={item.name}
-        to={item.to}
+        key="Logout"
+        to="/"
         className="flex flex-row justify-start items-center my-8 text-sm font-medium  text-gray-400 hover:text-cyan-400"
-        onClick={() => handleClick && handleClick()}
+        onClick={() => dispatch(setLogout())}
       >
-        <item.icon className="w-6 h-6 mr-2" />
-        {item.name}
+        <HiLogout className="w-6 h-6 mr-2" />
+        Logout
       </NavLink>
-    ))}
-  </div>
-);
+    </div>
+  );
+};
+
 
 const Sidebar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -27,8 +43,14 @@ const Sidebar = () => {
   return (
     <>
       <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-[#191624]">
-        <img src={logo} alt="logo" className="w-24 h-24 rounded-full mx-auto object-cover" />
-        <span className='text-white font-extrabold text-center mt-2 text-xl'>Podcast</span>
+        <img
+          src={logo}
+          alt="logo"
+          className="w-24 h-24 rounded-full mx-auto object-cover"
+        />
+        <span className="text-white font-extrabold text-center mt-2 text-xl">
+          Podcast
+        </span>
         <NavLinks />
       </div>
       <div className="absolute md:hidden block top-6 right-3">
@@ -46,7 +68,7 @@ const Sidebar = () => {
       </div>
       <div
         className={`absolute top-0 h-screen w-2/3 bg-gradient-to-tl from-white/10 to-[#48d8b] backdrop-blur-lg z-10 p-6 md:hidden smooth-transition ${
-          mobileMenuOpen ? 'left-0' : '-left-full'
+          mobileMenuOpen ? "left-0" : "-left-full"
         }`}
       >
         <img src={logo} alt="logo" className="w-full h-14 object-contain" />
